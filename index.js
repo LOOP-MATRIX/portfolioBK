@@ -4,10 +4,16 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
 app.use(express.json());
 
+app.use(cors({
+  origin: 'https://portfolio-ten-gray-27.vercel.app',
+  methods: ['POST'],
+}));
 
+app.get('/',(req,res)=>{
+  res.json('hello!!!')
+})
 
 app.post('/api/send-mail', async (req, res) => {
   const { name, email, message } = req.body;
