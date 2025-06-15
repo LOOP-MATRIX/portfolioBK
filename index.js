@@ -6,10 +6,16 @@ require('dotenv').config();
 const app = express();
 app.use(express.json());
 
-app.use(cors({
+const corsOptions = {
   origin: 'https://portfolio-ten-gray-27.vercel.app',
-  methods: ['POST'],
-}));
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type'],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // preflight support
+
 
 app.get('/',(req,res)=>{
   res.json('hello!!!')
@@ -46,7 +52,7 @@ app.post('/api/send-mail', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
