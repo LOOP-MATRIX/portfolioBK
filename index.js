@@ -6,15 +6,12 @@ require('dotenv').config();
 const app = express();
 app.use(express.json());
 
-const corsOptions = {
+app.use(cors({
   origin: 'https://portfolio-ten-gray-27.vercel.app',
-  methods: ['GET', 'POST', 'OPTIONS'],
+  methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type'],
   credentials: true
-};
-
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // preflight support
+}));
 
 
 app.get('/',(req,res)=>{
